@@ -1,57 +1,79 @@
-// horrorGlitch.js
-document.addEventListener('DOMContentLoaded', function() {
-    let body = document.body;
+// 背景を赤くフラッシュさせる
+function flashBackground() {
+  const body = document.body;
+  body.style.transition = "background-color 0.1s";
+  body.style.backgroundColor = "red";
 
-    // グリッチエフェクトをランダムで発生させる間隔
-    const glitchInterval = 200; // 200msごとにエフェクトを発生
-    const glitchDuration = 1000; // 1秒間、グリッチエフェクトが続く
+  setTimeout(() => {
+    body.style.backgroundColor = "black";
+  }, 100);
+}
 
-    // 背景色とテキストをランダムに変更する関数
-    function applyGlitchEffect() {
-        // 背景色をランダムに変更
-        body.style.backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+// テキストを不規則に変化させる
+function glitchText() {
+  const texts = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+  texts.forEach((text) => {
+    setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * text.innerText.length);
+      let newText = text.innerText.split("");
+      newText[randomIndex] = getRandomCharacter();
+      text.innerText = newText.join("");
+    }, 100);
+  });
+}
 
-        // ランダムなテキストを選ぶ
-        let glitchText = ['404 ERROR', 'SYSTEM FAILURE', 'ACCESS DENIED', 'GLITCH DETECTED', 'FILE CORRUPTED'];
-        let randomText = glitchText[Math.floor(Math.random() * glitchText.length)];
+// 不気味な音声を追加
+function playHorrorSound() {
+  const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
+  audio.loop = true;
+  audio.play();
+}
 
-        // テキストのランダム変更
-        let allTextElements = document.querySelectorAll('h1, h2, h3, p, span');
-        allTextElements.forEach(element => {
-            let randomDelay = Math.random() * 300 + 100;  // ランダムな遅延を加える
-            setTimeout(() => {
-                element.textContent = randomText;
-                element.style.color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;  // 色をランダムに変更
-            }, randomDelay);
-        });
-    }
+// 不安定に文字を動かす
+function unstableText() {
+  const texts = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+  texts.forEach((text) => {
+    setInterval(() => {
+      text.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+    }, 50);
+  });
+}
 
-    // グリッチを発生させるアニメーション
-    function shakeBody() {
-        // 体を揺らす（グリッチ感を出す）
-        let shakeAmount = Math.floor(Math.random() * 10) + 2;
-        let shakeDirection = Math.random() > 0.5 ? 1 : -1;
+// ボタンのランダムな動き
+function glitchButton() {
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((button) => {
+    setInterval(() => {
+      // ランダムな位置にボタンを移動
+      button.style.position = "absolute";
+      button.style.left = `${Math.random() * window.innerWidth}px`;
+      button.style.top = `${Math.random() * window.innerHeight}px`;
 
-        body.style.transition = 'transform 0.1s ease';
-        body.style.transform = `translateX(${shakeAmount * shakeDirection}px)`;
+      // ランダムなサイズに変更
+      button.style.fontSize = `${Math.random() * 30 + 10}px`; // 10pxから40pxの間でサイズ変更
 
-        // 少し時間が経ったら元に戻す
-        setTimeout(() => {
-            body.style.transform = 'translateX(0)';
-        }, 100);
-    }
+      // ランダムにボタンを揺らす
+      button.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+    }, 100);
+  });
+}
 
-    // グリッチを発生させるタイマー
-    setInterval(function() {
-        // 背景色変更と文字のランダム変更を同時に実行
-        applyGlitchEffect();
-        shakeBody();
-    }, glitchInterval);
+// 文字をランダムな文字に置き換える
+function getRandomCharacter() {
+  const characters = ["A", "B", "C", "1", "!", "$", "%", "&", "#", "@", "*"];
+  return characters[Math.floor(Math.random() * characters.length)];
+}
 
-    // 長期間のグリッチを実行
-    setTimeout(() => {
-        // 1秒間だけ、グリッチを続ける
-        body.style.transition = 'all 0.5s ease-in-out';
-        body.style.transform = 'rotate(2deg)';
-    }, glitchDuration);
-});
+// 実行する
+function horrorGlitch() {
+  flashBackground();
+  glitchText();
+  playHorrorSound();
+  unstableText();
+  glitchButton();
+}
+
+// ページ読み込み時にエフェクトを開始
+window.onload = () => {
+  horrorGlitch();
+};
