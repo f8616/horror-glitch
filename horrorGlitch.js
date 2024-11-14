@@ -1,59 +1,78 @@
-window.addEventListener('load', function() {
-    // グリッチ効果の対象要素
-    const buttons = document.querySelectorAll('button');
-    const textareas = document.querySelectorAll('textarea');
-    const elementsToChange = [...buttons, ...textareas];
+// ランダムなテキストを取得
+function getRandomText() {
+    const texts = ["ERROR", "BLOOD", "HELP ME", "I'M WATCHING", "DANGER", "SYSTEM FAILURE"];
+    return texts[Math.floor(Math.random() * texts.length)];
+}
 
-    // エフェクトを適用する
-    elementsToChange.forEach(element => {
-        // 文字がランダムに変わる
-        setInterval(() => {
-            element.textContent = getRandomText();
-        }, 500);
-
-        // 位置がランダムに移動する
-        setInterval(() => {
-            let randomX = Math.random() * window.innerWidth;
-            let randomY = Math.random() * window.innerHeight;
-            element.style.position = 'absolute';
-            element.style.left = `${randomX}px`;
-            element.style.top = `${randomY}px`;
-        }, 1000);
-
-        // サイズが変わる
-        setInterval(() => {
-            let randomSize = Math.random() * 30 + 10; // 10px〜40px
-            element.style.fontSize = `${randomSize}px`;
-        }, 500);
-
-        // 回転する
-        setInterval(() => {
-            let randomRotation = Math.random() * 360; // 0〜360度
-            element.style.transform = `rotate(${randomRotation}deg)`;
-        }, 1000);
+// ボタンの文字をランダムに変更
+function changeButtonText() {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(button => {
+        button.textContent = getRandomText();
     });
+}
 
-    // 背景に血が垂れてくるエフェクト
-    let bloodEffect = document.createElement('div');
-    bloodEffect.style.position = 'absolute';
-    bloodEffect.style.top = '0';
-    bloodEffect.style.left = '50%';
-    bloodEffect.style.width = '10px';
-    bloodEffect.style.height = '100px';
-    bloodEffect.style.backgroundColor = 'red';
-    document.body.appendChild(bloodEffect);
+// 背景色をランダムに変更
+function changeBackgroundColor() {
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.body.style.backgroundColor = randomColor;
+}
 
-    // 血の位置をランダムに変更
-    setInterval(() => {
-        let randomX = Math.random() * window.innerWidth;
-        let randomY = Math.random() * window.innerHeight;
-        bloodEffect.style.top = randomY + 'px';
-        bloodEffect.style.left = randomX + 'px';
-    }, 1000);
+// <h2>出力結果</h2>のテキストをランダムに変更
+function changeHeadingText() {
+    const headingTexts = ["Output", "Results", "Logs", "ERRORS", "SYSTEM ALERT"];
+    const randomHeading = headingTexts[Math.floor(Math.random() * headingTexts.length)];
+    document.querySelector("h2").textContent = randomHeading;
+}
 
-    // 文字をランダムに変更する関数
-    function getRandomText() {
-        const texts = ["ERROR", "BLOOD", "HELP ME", "I'M WATCHING", "DANGER", "SYSTEM FAILURE"];
-        return texts[Math.floor(Math.random() * texts.length)];
-    }
-});
+// 要素の位置やサイズをランダムに変更
+function randomizeElementPositionAndSize() {
+    const elements = document.querySelectorAll("button, textarea, h1, h2");
+    elements.forEach(element => {
+        const randomTop = Math.floor(Math.random() * window.innerHeight) + 'px';
+        const randomLeft = Math.floor(Math.random() * window.innerWidth) + 'px';
+        const randomSize = Math.floor(Math.random() * 30) + 10 + 'px';
+        const randomRotate = Math.floor(Math.random() * 360) + 'deg';
+
+        element.style.position = 'absolute';
+        element.style.top = randomTop;
+        element.style.left = randomLeft;
+        element.style.fontSize = randomSize;
+        element.style.transform = `rotate(${randomRotate})`;
+    });
+}
+
+// 血のエフェクトを追加
+function createBloodEffect() {
+    const blood = document.createElement('div');
+    blood.style.position = 'absolute';
+    blood.style.top = '0';
+    blood.style.left = `${Math.random() * window.innerWidth}px`;
+    blood.style.width = '5px';
+    blood.style.height = '20px';
+    blood.style.backgroundColor = 'red';
+    blood.style.animation = 'bloodDrip 1s infinite';
+    document.body.appendChild(blood);
+}
+
+// 血滴のアニメーション
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes bloodDrip {
+    0% { top: 0; opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+`;
+document.head.appendChild(style);
+
+// 1秒ごとに血滴を生成
+setInterval(createBloodEffect, 1000);
+
+// 定期的にエフェクトを更新
+setInterval(() => {
+    changeButtonText();
+    changeBackgroundColor();
+    changeHeadingText();
+    randomizeElementPositionAndSize();
+}, 2000);  // 2秒ごとにエフェクトを更新
