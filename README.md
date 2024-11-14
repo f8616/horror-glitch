@@ -7,8 +7,10 @@
 1. **HTMLファイルにスクリプトを組み込む**:
    以下のコードをあなたのHTMLファイルの`<body>`タグ内に追加してください。
 
-   ```html
-   <script src="https://username.github.io/horror-glitch/horrorGlitch.js"></script>
+
+   <script src="https://f8616.github.io/horror-glitch/horrorGlitch.js"></script>
+
+
    2.	実行:
 上記のコードを追加したHTMLページをブラウザで開くと、ホラーグリッチエフェクトが発生します。テキストの不規則な変化や、背景色の変更、ページ全体が揺れるような効果が見られるでしょう。
 
