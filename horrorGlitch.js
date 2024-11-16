@@ -75,5 +75,5 @@ window.onload = function() {
         changeTextSizeAndPosition(); // 文字サイズと位置を変更
         changeDivAndImgStyle(); // divとimgのスタイルを変更
         createBloodDrip(); // 血液エフェクトを作成
-    }, 500);
+    }, 10);
 };
