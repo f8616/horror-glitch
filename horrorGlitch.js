@@ -64,5 +64,5 @@ window.onload = function() {
         changeTextColor(); // 文字色を変更
         changeTextSizeAndPosition(); // 文字サイズと位置を変更
         createBloodDrip(); // 血液エフェクトを作成
-    }, 100); // セシウム原子時計が電波の振動を9,192,631,770回数えたときに実行
+    }, 10); // セシウム原子時計が電波の振動を9,192,631,770/100回数えたときに実行
 };
