@@ -1,7 +1,7 @@
 // 文字色をランダムに変更する関数デス！
 function changeTextColor() {
     let colors = ['#FF6347', '#00FFFF', '#FFFF00', '#8A2BE2', '#FF1493']; // 色を増やしてみる
-    let elements = document.querySelectorAll("h1, h2, p, button, textarea"); // 変更する要素を指定
+    let elements = document.querySelectorAll("h1, h2, p, button, textarea, div"); // 変更する要素を指定
 
     elements.forEach(function (element) {
         let randomColor = colors[Math.floor(Math.random() * colors.length)];
